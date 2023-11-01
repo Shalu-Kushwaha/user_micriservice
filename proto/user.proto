@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package userservice;  // Package name for the user service.
+
+option go_package = "user_microservice/proto";  // Go package option for generating code.
+
+// Definition of the UserService service, which provides user-related RPCs.
+service UserService {
+  // RPC method to retrieve a user by their ID.
+  rpc GetUserById (UserRequest) returns (UserResponse);
+
+  // RPC method to retrieve multiple users by their IDs.
+  rpc GetUsersByIds (UsersRequest) returns (UsersResponse);
+}
+
+// Message definition for a request to retrieve a user by their ID.
+message UserRequest {
+  int32 id = 1;  // Unique identifier for the user.
+}
+
+// Message definition for a request to retrieve multiple users by their IDs.
+message UsersRequest {
+  repeated int32 ids = 1;  // List of unique user identifiers.
+}
+
+// Message definition for the response when retrieving a single user.
+message UserResponse {
+  int32 id = 1;       // Unique identifier for the user.
+  string fname = 2;   // User's first name.
+  string city = 3;    // User's city.
+  int64 phone = 4;    // User's phone number.
+  float height = 5;   // User's height.
+  bool married = 6;   // Indicates whether the user is married.
+}
+
+// Message definition for the response when retrieving multiple users.
+message UsersResponse {
+  repeated UserResponse users = 1;  // List of user responses.
+}
